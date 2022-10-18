@@ -131,6 +131,7 @@ h3 {
     margin-top: 100px;
 }
 
-body
-{
+body {
+    margin: 0;
+    background-color: #f2f2f2;
 }

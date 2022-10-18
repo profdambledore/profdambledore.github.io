@@ -1,0 +1,31 @@
+﻿h1 {
+    width: 80%;
+    font-family: 'RobertoSansRegular', Arial;
+    text-align: center;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 3s;
+    animation-delay: -1s;
+    margin: 40px 40px 40px 40px;
+}
+
+h2 {
+    width: 90%;
+}
+
+.educationbutton {
+    background-size: cover;
+    width: 24%;
+    aspect-ratio: 1/1;
+    margin: 20px;
+    border: 5px solid #463353;
+}
+
+.languagebutton {
+    background-size: cover;
+    width: 9%;
+    aspect-ratio: 1/1;
+    margin: 10px;
+    border: 5px solid #463353;
+}
