@@ -19,6 +19,7 @@
     -webkit-animation-duration: 1s;
     animation-name: animatebottom;
     animation-duration: 3s;
+    color: black;
 }
 
 .projectbutton:hover {
@@ -27,7 +28,7 @@
 
 .hovercontent {
     width: 30%;
-    aspect-ratio: 4/3;
+    /*aspect-ratio: 4/3; */
     position: fixed;
     visibility: hidden;
     background-color: #c5c5c5;
@@ -39,7 +40,7 @@
 
 .hovercontent-bar {
     background-color: #382C42;
-    font-size: 35px;
+    font-size: 30px;
     color: #f2f2f2;
     font-family: 'RobertoSansRegular', Arial;
     text-align: center;
@@ -53,14 +54,15 @@ div.hovercontent-image {
     background-size: cover;
 }
 
-div.hovercontent-points {
-    width: 100%;
-    /* aspect-ratio: 4/0.75; */
-    padding-top: 5px;
-    padding-bottom: 5px;
+.hovercontent-tags {
     background-color: #3f3f3f;
+    font-size: 18px;
+    color: #f2f2f2;
+    font-family: 'RobertoSansRegular', Arial;
+    text-align: center;
 }
 div.hoverpoint {
+    vertical-align: bottom;
     width: 20%;
     display: inline-block;
     aspect-ratio: 0.9/0.9;
@@ -74,6 +76,7 @@ div.hoverpoint {
 h1 {
     width: 80%;
     font-family: 'RobertoSansRegular', Arial;
+    font-size: 20px;
     text-align: center;
     -webkit-animation-name: animatebottom;
     -webkit-animation-duration: 1s;

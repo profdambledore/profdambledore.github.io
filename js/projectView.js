@@ -1,8 +1,12 @@
 // JavaScript source code
 
+// Store all of the project buttons for reference later
 const projectButtonOne = document.getElementById('projectbuttonOne');
 const projectButtonTwo = document.getElementById('projectbuttonTwo');
 const projectContent = document.getElementById('projectContent')
+
+// Set the project buttons images to the correct images
+projectButtonOne.style.backgroundImage = "url('img/p1/p1h.png')"
 
 // For each button (until I find a better way) this chunk of code must be added
 // Add content move listener
@@ -16,8 +20,7 @@ projectButtonOne.onmouseenter = function showHoveredContent() {
     projectContent.style.visibility = 'visible';
     document.getElementById('hoverContentHeader').textContent = 'Pub Simulator Prototype';
     document.getElementById('hoverContentImage').style.backgroundImage = "url('img/catTestImage.jpg')";
-    document.getElementById('hoverPointEngine').style.backgroundImage = "url('icon/UnrealIcon.png')"
-    document.getElementById('hoverPointLanguage').style.backgroundImage = "url('icon/CPPIcon.png')"
+    document.getElementById('hoverContentTags').textContent = 'Tags: Unreal Engine 4, C++';
 }
 
 projectButtonOne.onmouseleave = function hideHoveredContent() {
@@ -36,8 +39,6 @@ projectButtonTwo.onmouseenter = function showHoveredContent() {
     projectContent.style.visibility = 'visible';
     document.getElementById('hoverContentHeader').textContent = 'Physics Based Spaceship Experimentation';
     document.getElementById('hoverContentImage').style.backgroundImage = "url('img/catTestImageTwo.jpg')";
-    document.getElementById('hoverPointEngine').style.backgroundImage = "url('icon/UnrealIcon.png')"
-    document.getElementById('hoverPointLanguage').style.backgroundImage = "url('icon/CPPIcon.png')"
 }
 
 projectButtonTwo.onmouseleave = function hideHoveredContent() {
