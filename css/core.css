@@ -72,20 +72,3 @@ div.hoverpoint {
     margin-left: 2.5px;
     margin-right: 2.5px;
 }
-
-h1 {
-    width: 80%;
-    font-family: 'RobertoSansRegular', Arial;
-    font-size: 20px;
-    text-align: center;
-    -webkit-animation-name: animatebottom;
-    -webkit-animation-duration: 1s;
-    animation-name: animatebottom;
-    animation-duration: 3s;
-    animation-delay: -1s;
-    margin: 40px 40px 40px 40px;
-}
-
-h2 {
-    width: 90%;
-}

@@ -44,3 +44,4 @@ projectButtonTwo.onmouseenter = function showHoveredContent() {
 projectButtonTwo.onmouseleave = function hideHoveredContent() {
     projectContent.style.visibility = 'hidden';
 }
+
