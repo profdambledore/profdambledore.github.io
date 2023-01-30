@@ -123,33 +123,28 @@ function drawBackground(hex, btn) {
     totalNodes = maxBranchLength * maxLeafsPerNode;
 
     // Then add them
-    var i = 0;
     var currNode = 1; //
     var bNode = false; // True when a open node 'slot' is found, false when not
-    while (i < totalNodes) {
+    for (let i = 0; i < totalNodes; i++) {
         bNode = false;
         while (!bNode) {
             // First, check if the current node has spaces for children
-            console.log(currNode);
             if (backTree.find(currNode).amountChildren < maxLeafsPerNode) {
                 bNode = true;
             }
             // Then check if we have reached the max branch length.  If so, move back a key (111 -> 11) and progress the last character by one (11 -> 12)
             // But only do this if a node hasen't been found
             else if (!bNode && (currNode.length) + 1 >= maxBranchLength) {
-                currNode = (+String(currNode).substring(0, currNode.length - 1)) + 1;
+                currNode = (String(currNode).substring(0, currNode.length - 1)) + 1;
             }
             // Finally, move up a key (11 -> 111)
             else if (!bNode && backTree.find(currNode).amountChildren >= maxLeafsPerNode) {
-                currNode = +(String(currNode) + 1);
+                currNode = (String(currNode) + 1);
             }
         }
 
         // Add the node to the location
         backTree.insert(backTree.find(currNode).key, makeNodeID(backTree.find(currNode).key, backTree.find(currNode).amountChildren), new treePoint(0, 0));
-    
-        // Iterate
-        i++;
     }
     console.log(backTree);
 }
