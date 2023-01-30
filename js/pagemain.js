@@ -125,7 +125,7 @@ function drawBackground(hex, btn) {
     // Then add them
     var currNode = 1; //
     var bNode = false; // True when a open node 'slot' is found, false when not
-    for (let i = 0; i < totalNodes; i++) {
+    for (let i = 0; i < 6; i++) {
         bNode = false;
         while (!bNode) {
             // First, check if the current node has spaces for children
@@ -134,12 +134,14 @@ function drawBackground(hex, btn) {
             }
             // Then check if we have reached the max branch length.  If so, move back a key (111 -> 11) and progress the last character by one (11 -> 12)
             // But only do this if a node hasen't been found
-            else if (!bNode && (currNode.length) + 1 >= maxBranchLength) {
-                currNode = (String(currNode).substring(0, currNode.length - 1)) + 1;
+            else if (!bNode && (String(backTree.find(currNode).key).length + 1) >= maxBranchLength) {
+                currNode = String(+(String(currNode).substring(0, currNode.length)) +1);
+                console.log(currNode);
             }
             // Finally, move up a key (11 -> 111)
             else if (!bNode && backTree.find(currNode).amountChildren >= maxLeafsPerNode) {
                 currNode = (String(currNode) + 1);
+                console.log(currNode);
             }
         }
 
