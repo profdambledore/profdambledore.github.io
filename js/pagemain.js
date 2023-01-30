@@ -2,9 +2,8 @@
 
 // Variables
 // Store IDs of main page elements
-var aboutMeButton = document.getElementById('btn_aboutMe');
+var aboutMeButton = document.getElementById('btnAboutMe');
 var projectsButton = document.getElementById('btn_projects');
-
 var backCanvas = document.getElementById('cnv_main')
 
 // Draw Properties
@@ -13,8 +12,16 @@ var maxBranchLength = 3;
 var minPointBounds = 10;
 var maxPointBounds = 100;
 
-const treePoint = { x: 0, y: 0 }
-const backTree = null;
+// Tree Point Class
+class treePoint {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+backTree = null;
+
 
 
 // Functions
@@ -33,6 +40,10 @@ class TreeNode {
 
     get hasChildren() {
         return !this.isLeaf;
+    }
+
+    get amountChildren() {
+        return this.children.length;
     }
 }
 
@@ -106,13 +117,47 @@ function drawBackground(hex, btn) {
     btnY = getOffset(btn).top;
 
     // Create a new tree to store points, named backTree
-    backTree = new Tree(1, treePoint(btnX, btnY));
+    backTree = new Tree(1, new treePoint(btnX, btnY));
+
+    // Next, calculate how many nodes we need to create
+    totalNodes = maxBranchLength * maxLeafsPerNode;
+
+    // Then add them
+    var i = 0;
+    var currNode = 1; //
+    var bNode = false; // True when a open node 'slot' is found, false when not
+    while (i < totalNodes) {
+        bNode = false;
+        while (!bNode) {
+            // First, check if the current node has spaces for children
+            console.log(currNode);
+            if (backTree.find(currNode).amountChildren < maxLeafsPerNode) {
+                bNode = true;
+            }
+            // Then check if we have reached the max branch length.  If so, move back a key (111 -> 11) and progress the last character by one (11 -> 12)
+            // But only do this if a node hasen't been found
+            else if (!bNode && (currNode.length) + 1 >= maxBranchLength) {
+                currNode = (+String(currNode).substring(0, currNode.length - 1)) + 1;
+            }
+            // Finally, move up a key (11 -> 111)
+            else if (!bNode && backTree.find(currNode).amountChildren >= maxLeafsPerNode) {
+                currNode = +(String(currNode) + 1);
+            }
+        }
+
+        // Add the node to the location
+        backTree.insert(backTree.find(currNode).key, makeNodeID(backTree.find(currNode).key, backTree.find(currNode).amountChildren), new treePoint(0, 0));
+    
+        // Iterate
+        i++;
+    }
+    console.log(backTree);
 }
 
 // Clear the canvas
 function clearBackground() {
     // Clear the canvas of any draw
-    backCanvasContext.clearRect(0, 0, canvasctx.width, canvasctx.height);
+    backCanvasContext.clearRect(0, 0, backCanvasContext.width, backCanvasContext.height);
 
     // Clear the backTree
     backTree = null;
@@ -127,8 +172,13 @@ function getOffset(el) {
     };
 }
 
+// Get a random point on one axis between the bounds
 function getRandLocation(value) {
     return Math.floor(Math.random() * (maxPointBounds - minPointBounds + 1) + minPointBounds);
+}
+
+function makeNodeID(parentID, amountOfChildren) {
+    return String(parentID) + (amountOfChildren + 1);
 }
 
 // Init
