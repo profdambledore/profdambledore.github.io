@@ -6,11 +6,20 @@ var aboutMeButton = document.getElementById('btnAboutMe');
 var projectsButton = document.getElementById('btn_projects');
 var backCanvas = document.getElementById('cnv_main')
 
+backCanvas.style.left = "0px";
+backCanvas.style.top = "0px";
+backCanvas.style.width = "100%";
+backCanvas.style.height = "100%";
+backCanvas.width = backCanvas.offsetWidth;
+backCanvas.height = backCanvas.offsetHeight;
+
+const backCanvasContext = backCanvas.getContext('2d');
+
 // Draw Properties
-var maxLeafsPerNode = 2;
-var maxBranchLength = 3;
-var minPointBounds = 10;
-var maxPointBounds = 100;
+var maxLeafsPerNode = 3;
+var maxBranchLength = 4;
+var minPointBounds = 100;
+var maxPointBounds = 250;
 
 // Tree Point Class
 class treePoint {
@@ -21,8 +30,6 @@ class treePoint {
 }
 
 backTree = null;
-
-
 
 // Functions
 // Tree class and functions @ https://www.30secondsofcode.org/articles/s/js-data-structures-tree
@@ -125,7 +132,7 @@ function drawBackground(hex, btn) {
     // Then add them
     var currNode = 1; //
     var bNode = false; // True when a open node 'slot' is found, false when not
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < totalNodes; i++) {
         bNode = false;
         while (!bNode) {
             // First, check if the current node has spaces for children
@@ -146,32 +153,51 @@ function drawBackground(hex, btn) {
         }
 
         // Add the node to the location
-        backTree.insert(backTree.find(currNode).key, makeNodeID(backTree.find(currNode).key, backTree.find(currNode).amountChildren), new treePoint(0, 0));
+        // First, get new point loc
+        nX = getRandLocation(backTree.find(currNode).value.x); nY = getRandLocation(backTree.find(currNode).value.y)
+        backTree.insert(backTree.find(currNode).key, makeNodeID(backTree.find(currNode).key, backTree.find(currNode).amountChildren), new treePoint(nX, nY));
+
+        // Now draw the lines between the nodes
+        backCanvasContext.beginPath();
+        backCanvasContext.moveTo(backTree.find(currNode).value.x, backTree.find(currNode).value.y);
+        backCanvasContext.lineTo(nX, nY);
+        backCanvasContext.strokeStyle = hex;
+        backCanvasContext.lineWidth = 5;
+        backCanvasContext.stroke();
     }
     console.log(backTree);
+
+
 }
 
 // Clear the canvas
 function clearBackground() {
     // Clear the canvas of any draw
-    backCanvasContext.clearRect(0, 0, backCanvasContext.width, backCanvasContext.height);
+    backCanvasContext.clearRect(0, 0, backCanvas.width, backCanvas.height);
 
     // Clear the backTree
     backTree = null;
+    console.log(backTree);
 }
 
 // Get the offset of the element on the page
 function getOffset(el) {
     const rect = el.getBoundingClientRect();
     return {
-        left: rect.left + window.scrollX,
-        top: rect.top + window.scrollY
+        left: rect.left + rect.width / 2,
+        top: rect.top + rect.height / 2
     };
 }
 
 // Get a random point on one axis between the bounds
 function getRandLocation(value) {
-    return Math.floor(Math.random() * (maxPointBounds - minPointBounds + 1) + minPointBounds);
+    var out = Math.floor(Math.random() * (maxPointBounds - minPointBounds + 1) + minPointBounds);
+    bool = Math.random() < 0.5
+    if (bool == true) {
+        console.log(out * -1);
+        return (out * -1) + value;
+    }
+    return out + value;
 }
 
 function makeNodeID(parentID, amountOfChildren) {
@@ -180,7 +206,7 @@ function makeNodeID(parentID, amountOfChildren) {
 
 // Init
 function init() {
-    backCanvasContext = backCanvas.getContext('2d');
+
 }
 
 window.onload = init();
